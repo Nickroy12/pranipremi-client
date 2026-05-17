@@ -1,6 +1,7 @@
 'use client'
 
 import NavLink from '@/ui/NavLink'
+import ThemeToggle from '@/ui/Toogle'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -26,7 +27,7 @@ const Navbar = () => {
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            ☰
+            <MdPets className='text-2xl'/>
           </div>
 
           <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
@@ -44,7 +45,8 @@ const Navbar = () => {
       </div>
            
       <div className="navbar-end">
-        <button className="btn bg-amber-400">Login</button>
+        <ThemeToggle/>
+        <Link href={'/dashboard'} className="btn text-white bg-amber-400">Login</Link>
       </div>
     </div>
   )
