@@ -9,7 +9,7 @@ const DashboardLayout = ({children}) => {
      <label htmlFor="my-drawer-3" className=" drawer-button lg:hidden">
      <RiMenuFold2Line />
     </label>
-  <div className="drawer-content flex flex-col items-center justify-center">
+  <div className="drawer-content flex flex-col ">
     {/* Page content here */}
     {children}
  
