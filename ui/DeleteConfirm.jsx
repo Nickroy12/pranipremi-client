@@ -1,7 +1,7 @@
-import React from 'react'
+'use client'
 import { FaTrash } from 'react-icons/fa'
 
-const DeleteConfirm = ({pet}) => {
+const DeleteConfirm = ({pet , petDelete}) => {
   return (
     <div>
         <label htmlFor="my_modal_6" className="btn btn-sm btn-outline border-amber-400">  <FaTrash />
@@ -15,7 +15,7 @@ Delete</label>
     
     <div className="modal-action">
       <label htmlFor="my_modal_6" className="btn">Close!</label>
-      <label htmlFor="my_modal_6" className="btn">Confirm</label>
+      <label htmlFor="my_modal_6" onClick={petDelete} className="btn">Confirm</label>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,7 +13,8 @@ import {
 import { GiDogHouse } from "react-icons/gi";
 import DeleteConfirm from "./DeleteConfirm";
 
-const PostCard = ({ pet }) => {
+const PostCard = ({ pet , petDelete }) => {
+   
   return (
     <div className="card bg-base-100 w-full shadow-md rounded-xl overflow-hidden">
       
@@ -65,7 +68,7 @@ const PostCard = ({ pet }) => {
             Request
           </button>
 
-         <DeleteConfirm pet={pet}/>
+         <DeleteConfirm pet={pet} petDelete={() => petDelete(pet._id)} />
 
         </div>
       </div>
