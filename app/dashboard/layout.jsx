@@ -6,8 +6,8 @@ const DashboardLayout = ({children}) => {
   return (
 <div className="drawer lg:drawer-open">
   <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-     <label htmlFor="my-drawer-3" className=" drawer-button lg:hidden">
-     <RiMenuFold2Line />
+     <label htmlFor="my-drawer-3" className=" p-2 drawer-button lg:hidden">
+     <RiMenuFold2Line className='text-xl font-bold cursor-pointer' />
     </label>
   <div className="drawer-content flex flex-col ">
     {/* Page content here */}

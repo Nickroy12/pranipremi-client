@@ -1,5 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
+import { CiLocationArrow1 } from 'react-icons/ci'
 
 const ForntCard = ({ pet }) => {
   return (
@@ -37,10 +39,14 @@ const ForntCard = ({ pet }) => {
           <span>•</span>
           <p>{pet.gender}</p>
         </div>
+        <div>
+              <p className='flex items-center  text-red-400'><CiLocationArrow1  /> {pet.location}</p>
+        </div>
 
         {/* ACTION AREA */}
         <div className="card-actions justify-end mt-3">
-          {/* future buttons like View / Adopt */}
+          <Link href={`/petDetails/${pet._id}`} className='btn btn-outline'>View Details</Link>
+          <Link href={'/'} className='btn btn-outline'>Available</Link>
         </div>
 
       </div>
