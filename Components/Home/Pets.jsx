@@ -6,7 +6,7 @@ const Pets = async () => {
   const petsData = await getPets()
 
   return (
-    <div className="w-10/12 mx-auto">
+    <div className="w-10/12 mx-auto p-5">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {petsData.map((pet) => (
           <ForntCard key={pet._id} pet={pet} />
