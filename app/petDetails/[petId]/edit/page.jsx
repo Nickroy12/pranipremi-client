@@ -1,56 +1,37 @@
-'use client'
+import { petUpdate } from "@/lib/action";
+import { petDetails } from "@/lib/data";
+import React from "react";
 
-import { useRef, useState } from "react";
+const EditPet = async ({ params }) => {
+  const { petId } = await params;
+  const pet = await petDetails(petId);
 
-const PetForm = ({ postPet }) => {
-  const formRef = useRef(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (formData) => {
-    try {
-      setLoading(true);
-
-      await postPet(formData);
-
-      // reset form
-      formRef.current?.reset();
-
-      // close DaisyUI modal
-      const modal = document.getElementById("my_modal_7");
-      if (modal) modal.checked = false;
-
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const updatePetInfo = async(formData) =>{
+    'use server'
+    return petUpdate(petId , formData)
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950 p-6 transition-colors duration-300">
-      <div className="w-full max-w-5xl bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-800">
-
-        {/* Title */}
-        <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
-          Add Pet Information
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
+      <div className="w-full max-w-4xl bg-white dark:bg-gray-900 shadow-lg rounded-2xl p-8 border border-gray-200 dark:border-gray-800">
+        
+        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">
+          Edit Pet Information : {pet?.petName}
         </h2>
 
-        {/* Form */}
-        <form
-          ref={formRef}
-          action={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
+        <form action={updatePetInfo} className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* Pet Name */}
           <div className="flex flex-col">
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Pet Name
             </label>
+
             <input
               name="petName"
               type="text"
               required
+              defaultValue={pet?.petName}
               placeholder="Enter pet name"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -61,9 +42,11 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Species
             </label>
+
             <select
               name="species"
               required
+              defaultValue={pet?.species}
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="">Select Species</option>
@@ -81,10 +64,12 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Breed
             </label>
+
             <input
               name="breed"
               type="text"
               required
+              defaultValue={pet?.breed}
               placeholder="Golden Retriever"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -95,14 +80,13 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Age
             </label>
+
             <input
               name="age"
               type="number"
               required
               min="0"
-              onKeyDown={(e) => {
-                if (e.key === "-" || e.key === "e") e.preventDefault();
-              }}
+              defaultValue={pet?.age}
               placeholder="2"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -113,9 +97,11 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Gender
             </label>
+
             <select
               name="gender"
               required
+              defaultValue={pet?.gender}
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="">Select Gender</option>
@@ -129,15 +115,16 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Vaccination Status
             </label>
+
             <select
               name="vaccinationStatus"
               required
+              defaultValue={pet?.vaccinationStatus}
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="">Select Status</option>
               <option value="Vaccinated">Vaccinated</option>
               <option value="Not Vaccinated">Not Vaccinated</option>
-              <option value="Not Need">Not Need</option>
             </select>
           </div>
 
@@ -146,9 +133,11 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Health Status
             </label>
+
             <select
               name="healthStatus"
               required
+              defaultValue={pet?.healthStatus}
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="">Select Health Status</option>
@@ -164,10 +153,12 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Image URL
             </label>
+
             <input
               name="imageUrl"
               type="text"
               required
+              defaultValue={pet?.imageUrl}
               placeholder="https://example.com/pet.jpg"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -178,10 +169,12 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Location
             </label>
+
             <input
               name="location"
               type="text"
               required
+              defaultValue={pet?.location}
               placeholder="Dhaka"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -192,14 +185,13 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Adoption Fee
             </label>
+
             <input
               name="adoptionFee"
               type="number"
               required
               min="0"
-              onKeyDown={(e) => {
-                if (e.key === "-" || e.key === "e") e.preventDefault();
-              }}
+              defaultValue={pet?.adoptionFee}
               placeholder="500"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -210,10 +202,12 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Owner Email
             </label>
+
             <input
               name="ownerEmail"
               type="email"
               required
+              defaultValue={pet?.ownerEmail}
               placeholder="owner@gmail.com"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
             />
@@ -224,22 +218,23 @@ const PetForm = ({ postPet }) => {
             <label className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Description
             </label>
+
             <textarea
               name="description"
               required
+              defaultValue={pet?.description}
               placeholder="Write pet details..."
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 min-h-[140px] outline-none focus:ring-2 focus:ring-amber-500"
             />
           </div>
 
-          {/* Button */}
-          <div className="md:col-span-2 flex justify-end gap-4 mt-2">
+          {/* Submit Button */}
+          <div className="md:col-span-2 flex justify-end mt-4">
             <button
               type="submit"
-              disabled={loading}
-              className="px-6 py-3 rounded-xl bg-amber-400 font-medium text-white hover:bg-amber-500 transition disabled:opacity-70"
+              className="px-8 py-3 rounded-xl bg-amber-400 text-white font-semibold hover:bg-amber-500 transition"
             >
-              {loading ? "Adding..." : "Add Pet"}
+              Update Pet
             </button>
           </div>
 
@@ -249,4 +244,4 @@ const PetForm = ({ postPet }) => {
   );
 };
 
-export default PetForm;
+export default EditPet;

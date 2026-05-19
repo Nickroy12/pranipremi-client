@@ -1,30 +1,31 @@
+'use client'
+
 import React from "react";
 import PetForm from "./PetForm";
 
-const Form = () => {
+const Form = ({ postPet }) => {
   return (
     <div>
       {/* Open Button */}
-      <label htmlFor="my_modal_7" className="btn font-light bg-amber-400 text-white">
+      <label
+        htmlFor="my_modal_7"
+        className="btn font-light bg-amber-400 text-white"
+      >
         Add Pet
       </label>
 
-      {/* Modal */}
-      <input
-        type="checkbox"
-        id="my_modal_7"
-        className="modal-toggle"
-      />
+      {/* Modal Toggle */}
+      <input type="checkbox" id="my_modal_7" className="modal-toggle" />
 
-      <div className="modal" role="dialog"> 
+      {/* Modal */}
+      <div className="modal" role="dialog">
         <div className="modal-box max-w-3xl p-0">
-          <PetForm />
+
+          <PetForm postPet={postPet} />
+
         </div>
 
-        <label
-          className="modal-backdrop"
-          htmlFor="my_modal_7"
-        >
+        <label className="modal-backdrop" htmlFor="my_modal_7">
           Close
         </label>
       </div>

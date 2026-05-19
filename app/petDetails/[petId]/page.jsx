@@ -17,7 +17,7 @@ const PetDetails = async ({ params }) => {
 
   return (
 <div className='w-10/12 mx-auto flex  justify-center'>
-  <div className=' md:w-7/12 md:h-[400px] space-y-3'>
+  <div className=' md:w-7/12  space-y-3'>
     <Image
       src={pet.imageUrl}
       alt={pet.petName}

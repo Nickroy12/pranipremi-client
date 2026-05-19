@@ -57,11 +57,12 @@ const PostCard = ({ pet , petDelete }) => {
             <FaEye />
             View
           </Link>
-
-          <button className="btn btn-sm btn-outline border-amber-400">
-            <FaEdit />
+          <Link href={`/petDetails/${pet._id}/edit`}  className="btn btn-sm btn-outline border-amber-400">
+       <FaEdit />
             Edit
-          </button>
+          </Link>
+
+
 
           <button className="btn btn-sm btn-outline border-amber-400">
             <GiDogHouse />

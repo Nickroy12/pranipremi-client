@@ -8,7 +8,7 @@ const Pets = async () => {
   return (
     <div className="w-10/12 mx-auto p-5">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {petsData.map((pet) => (
+        {petsData.slice(0,6).map((pet) => (
           <ForntCard key={pet._id} pet={pet} />
         ))}
       </div>
