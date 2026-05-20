@@ -1,12 +1,14 @@
 'use client'
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -22,8 +24,19 @@ const Login = () => {
     if (password.length < 6) {
       return alert("Password must be at least 6 characters");
     }
-
-    console.log({ email, password });
+     const { data, error } = await authClient.signIn.email({
+        email,
+        password,
+        callbackURL:'/'
+      });
+      
+    if(data){
+      toast.success('Login Successful ')
+    }
+    if(!data){
+       toast.error('Login Failed ')
+    }
+    console.log(data);
 
     // reset form
     e.currentTarget.reset();

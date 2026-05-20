@@ -1,41 +1,59 @@
 'use client'
+
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
+
     const { name, email, image, password, confirmPassword } = user;
 
+    // Validation
     if (password !== confirmPassword) {
-      return alert("Passwords do not match!");
+      setLoading(false);
+      return toast.error("Passwords do not match!");
     }
 
     if (password.length < 6) {
-      return alert("Password must be at least 6 characters");
+      setLoading(false);
+      return toast.error("Password must be at least 6 characters");
     }
 
     if (!/[A-Z]/.test(password)) {
-      return alert("Password must contain at least one uppercase letter");
+      setLoading(false);
+      return toast.error("Password must contain at least one uppercase letter");
     }
 
     if (!/[a-z]/.test(password)) {
-      return alert("Password must contain at least one lowercase letter");
+      setLoading(false);
+      return toast.error("Password must contain at least one lowercase letter");
     }
 
     if (!/[0-9]/.test(password)) {
-      return alert("Password must contain at least one number");
+      setLoading(false);
+      return toast.error("Password must contain at least one number");
     }
-
-    console.log({ name, email, image, password });
-    e.currentTarget.reset();
+     const { data, error } = await authClient.signUp.email({
+        email,
+        name,
+        image,
+        password,
+      });
+      
+    toast.success('signup Successful ')
   };
 
   return (
@@ -47,6 +65,7 @@ const Signup = () => {
           <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white">
             Create Account
           </h1>
+
           <p className="text-gray-500 dark:text-gray-400 mt-2">
             Join us and start your journey 🚀
           </p>
@@ -59,6 +78,7 @@ const Signup = () => {
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Full Name
             </label>
+
             <input
               type="text"
               name="name"
@@ -72,6 +92,7 @@ const Signup = () => {
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Email
             </label>
+
             <input
               type="email"
               name="email"
@@ -83,13 +104,14 @@ const Signup = () => {
           {/* Image */}
           <div>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Profile Image
+              Profile Image URL
             </label>
+
             <input
               type="text"
               name="image"
+              placeholder="https://example.com/image.png"
               className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none"
-              required
             />
           </div>
 
@@ -112,7 +134,11 @@ const Signup = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300"
               >
-                {showPassword ? <AiOutlineEyeInvisible size={22} /> : <AiOutlineEye size={22} />}
+                {showPassword ? (
+                  <AiOutlineEyeInvisible size={22} />
+                ) : (
+                  <AiOutlineEye size={22} />
+                )}
               </button>
             </div>
           </div>
@@ -133,27 +159,37 @@ const Signup = () => {
 
               <button
                 type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300"
               >
-                {showConfirmPassword ? <AiOutlineEyeInvisible size={22} /> : <AiOutlineEye size={22} />}
+                {showConfirmPassword ? (
+                  <AiOutlineEyeInvisible size={22} />
+                ) : (
+                  <AiOutlineEye size={22} />
+                )}
               </button>
             </div>
           </div>
 
-          {/* Button */}
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-xl font-semibold hover:scale-[1.02] transition"
+            disabled={loading}
+            className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-500 text-white py-3 rounded-xl font-semibold hover:scale-[1.02] transition"
           >
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
           Already have an account?{" "}
-          <Link href="/login" className="text-amber-600 font-semibold hover:underline">
+          <Link
+            href="/login"
+            className="text-amber-600 font-semibold hover:underline"
+          >
             Login
           </Link>
         </p>
