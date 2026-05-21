@@ -1,10 +1,15 @@
 'use client'
 
+import { authClient } from "@/lib/auth-client";
 import { useRef, useState } from "react";
 
 const PetForm = ({ postPet }) => {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
+    const { data: session, isPending } = authClient.useSession()
+  
+    const user = session?.user
+    console.log(user , "user");
 
   const handleSubmit = async (formData) => {
     try {
@@ -216,6 +221,8 @@ const PetForm = ({ postPet }) => {
               required
               placeholder="owner@gmail.com"
               className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-amber-500"
+                  defaultValue={user?.email || ""}
+        readOnly
             />
           </div>
 

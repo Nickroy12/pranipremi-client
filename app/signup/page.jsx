@@ -55,7 +55,11 @@ const Signup = () => {
       
     toast.success('signup Successful ')
   };
-
+  const googleSignUp = async () =>{
+    await authClient.signIn.social({
+    provider: "google",
+  });
+  }
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100 dark:bg-gray-950 transition-colors">
       <div className="w-full max-w-md bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-8 border border-gray-200 dark:border-gray-800 transition-colors">
@@ -193,6 +197,9 @@ const Signup = () => {
             Login
           </Link>
         </p>
+        <p onClick={googleSignUp} className="btn bg-amber-600 mx-auto text-white flex w-fit items-center justify-center">
+  Signin With Google
+</p>
       </div>
     </div>
   );

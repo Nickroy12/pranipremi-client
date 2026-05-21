@@ -29,7 +29,7 @@ const Login = () => {
         password,
         callbackURL:'/'
       });
-      
+      console.log('error', error);
     if(data){
       toast.success('Login Successful ')
     }
