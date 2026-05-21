@@ -1,6 +1,7 @@
 import { petDetails } from '@/lib/data'
 import Image from 'next/image'
 import React from 'react'
+// import AdoptionForm from './AdoptionForm'
 
 const PetDetails = async ({ params }) => {
   const { petId } = await params
@@ -8,16 +9,14 @@ const PetDetails = async ({ params }) => {
   const pet = await petDetails(petId)
 
   if (!pet) {
-    return (
-      <div>
-        <h1>Pet not found 😢</h1>
-      </div>
-    )
+    return <h1>Pet not found 😢</h1>
   }
 
   return (
-<div className='w-10/12 mx-auto flex  justify-center'>
-  <div className=' md:w-7/12  space-y-3'>
+    <div className='w-11/12 mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 gap-10'>
+      
+ 
+    <div className='   space-y-3'>
     <Image
       src={pet.imageUrl}
       alt={pet.petName}
@@ -72,7 +71,13 @@ const PetDetails = async ({ params }) => {
         </div>
     </div>
   </div>
-</div>
+   
+      <div>
+        {/* <AdoptionForm pet={pet} /> */}
+        hi
+      </div>
+
+    </div>
   )
 }
 

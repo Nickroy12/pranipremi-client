@@ -9,7 +9,6 @@ const PetFilter = ({ pets = [] }) => {
   const [filteredPets, setFilteredPets] = useState(pets);
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Fetch from backend (MongoDB filtering)
   const fetchPets = async (searchValue = "", speciesValue = "all") => {
     try {
       setLoading(true);
@@ -20,7 +19,7 @@ const PetFilter = ({ pets = [] }) => {
       if (speciesValue !== "all") params.append("species", speciesValue);
 
       const res = await fetch(
-        `http://localhost:8000/pets?${params.toString()}`
+        `${process.env.NEXT_PUBLIC_SERVER}/pets?${params.toString()}`
       );
 
       const data = await res.json();
@@ -33,17 +32,17 @@ const PetFilter = ({ pets = [] }) => {
     }
   };
 
-  // 🔄 Load all pets initially
+
   useEffect(() => {
     fetchPets();
   }, []);
 
-  // 🔍 Search button
+
   const handleSearch = () => {
     fetchPets(search, species);
   };
 
-  // 🐾 Filter change
+
   const handleCategoryChange = (value) => {
     setSpecies(value);
     fetchPets(search, value);
@@ -52,10 +51,8 @@ const PetFilter = ({ pets = [] }) => {
   return (
     <div className="w-11/12 mx-auto py-6">
 
-      {/* 🔍 Search + Filter */}
       <div className="flex flex-col md:flex-row items-center gap-3 mb-6">
 
-        {/* Species Filter */}
         <select
           className="select select-bordered w-full md:w-52"
           value={species}
@@ -69,7 +66,7 @@ const PetFilter = ({ pets = [] }) => {
           <option value="Cow">Cow</option>
         </select>
 
-        {/* Search Input */}
+   
         <input
           type="text"
           placeholder="Search pet name..."
@@ -78,7 +75,7 @@ const PetFilter = ({ pets = [] }) => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {/* Search Button */}
+ 
         <button
           onClick={handleSearch}
           className="btn bg-amber-500 font-light md:w-auto"
@@ -87,14 +84,13 @@ const PetFilter = ({ pets = [] }) => {
         </button>
       </div>
 
-      {/* 🔄 Loading */}
       {loading && (
         <p className="text-center text-gray-500 mb-4">
           Loading pets... 🐾
         </p>
       )}
 
-      {/* 🐶 Pet Grid */}
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {filteredPets.length > 0 ? (
           filteredPets.map((pet) => (
