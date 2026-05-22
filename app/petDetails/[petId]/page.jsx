@@ -15,7 +15,7 @@ const PetDetails = async ({ params }) => {
   })
 
   const {pet} = await petDetails(petId, token)
-   console.log(headers);
+
    const AdoptPet = await getAdopt(petId)
     
 

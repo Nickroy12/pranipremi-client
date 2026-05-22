@@ -9,7 +9,7 @@ const PetForm = ({ postPet }) => {
     const { data: session, isPending } = authClient.useSession()
   
     const user = session?.user
-    console.log(user , "user");
+  
 
   const handleSubmit = async (formData) => {
     try {
@@ -25,7 +25,7 @@ const PetForm = ({ postPet }) => {
       if (modal) modal.checked = false;
 
     } catch (error) {
-      console.error(error);
+   
     } finally {
       setLoading(false);
     }

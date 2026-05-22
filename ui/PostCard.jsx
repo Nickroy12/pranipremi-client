@@ -8,10 +8,10 @@ import { FaEye, FaEdit } from "react-icons/fa";
 
 
 import DeleteConfirm from "./DeleteConfirm";
-import Request from "./Request";
+
 
 const PostCard = ({ pet, petDelete , request }) => {
-   console.log(pet , "Pat");
+
    
   const imageSrc =
     pet?.imageUrl && pet.imageUrl.trim() !== ""

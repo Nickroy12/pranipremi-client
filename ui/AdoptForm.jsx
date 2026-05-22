@@ -9,7 +9,7 @@ const AdoptForm = ({  pet }) => {
     const { data: session, isPending } = authClient.useSession()
   
     const user = session?.user
-    console.log(user , "user");
+
 
   const [pickupDate, setPickupDate] = useState("")
   const [message, setMessage] = useState("")
@@ -37,7 +37,6 @@ const AdoptForm = ({  pet }) => {
     try {
       const res = await AdoptReq(pet?._id, formData)
 
-      console.log("Response:", res)
 
       if (!res?.success) {
         throw new Error(res?.message || "Request failed")
@@ -47,7 +46,7 @@ const AdoptForm = ({  pet }) => {
       setMessage("")
       toast.success("Adoption request sent successfully!")
     } catch (err) {
-      console.error(err)
+   
       toast.error(err.message || "Something went wrong")
     } finally {
       setLoading(false)

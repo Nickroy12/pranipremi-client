@@ -29,14 +29,14 @@ const Login = () => {
         password,
         callbackURL:'/'
       });
-      console.log('error', error);
+    
     if(data){
       toast.success('Login Successful ')
     }
     if(!data){
        toast.error('Login Failed ')
     }
-    console.log(data);
+
 
     // reset form
     e.currentTarget.reset();

@@ -26,7 +26,7 @@ const PetFilter = ({ pets = [] }) => {
 
       setFilteredPets(data);
     } catch (error) {
-      console.log("Error fetching pets:", error);
+    
     } finally {
       setLoading(false);
     }

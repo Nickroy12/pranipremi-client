@@ -4,8 +4,7 @@ import { GiDogHouse } from 'react-icons/gi'
 
 const Request = ({pet , request}) => {
      const modalId = `delete_modal_${pet._id}`;
-     console.log(pet , "per");
-     console.log({request} , "perr");
+
   return (
         <div>
           <label htmlFor={modalId} className="btn btn-sm btn-outline border-amber-400">

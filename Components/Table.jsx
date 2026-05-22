@@ -9,7 +9,7 @@ const Table = ({ pets, user }) => {
   };
 
   const request = async (requestId, status) => {
-    console.log(requestId , "Doya")
+    
       await handleAction(requestId, status);
   };
 
