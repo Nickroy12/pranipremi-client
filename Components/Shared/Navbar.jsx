@@ -65,10 +65,11 @@ const Navbar = () => {
 
         {!isPending && user ? (
           <div className="dropdown dropdown-end">
-
+              {user.name}
             {/* Avatar Button */}
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full ring ring-amber-400 ring-offset-base-100 ring-offset-2">
+              
                 <Image
                   src={user.image || "/default-user.png"}
                   alt="user"
@@ -87,9 +88,7 @@ const Navbar = () => {
                 <Link href="/dashboard">Dashboard</Link>
               </li>
 
-              <li>
-                <Link href="/profile">Profile</Link>
-              </li>
+           
 
               <li>
                 <button

@@ -77,7 +77,7 @@ const PostCard = ({ pet, petDelete , request }) => {
             Edit
           </Link>
 
-         
+        
 
           <DeleteConfirm
             pet={pet}
