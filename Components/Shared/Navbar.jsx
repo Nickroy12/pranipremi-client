@@ -85,7 +85,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link href="/dashboard">Dashboard</Link>
+                <Link href="/dashboard">Dashboard </Link>
               </li>
 
            
@@ -95,14 +95,14 @@ const Navbar = () => {
                   onClick={handleLogout}
                   className="text-red-500"
                 >
-                  Logout
+                   Logout
                 </button>
               </li>
             </ul>
           </div>
         ) : (
           <Link href="/login" className="btn btn-sm text-white bg-amber-400 hover:bg-amber-500">
-            Login
+            Login 
           </Link>
         )}
 
