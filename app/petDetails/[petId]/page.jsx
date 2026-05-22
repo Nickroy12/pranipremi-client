@@ -1,12 +1,28 @@
-import { petDetails } from '@/lib/data'
+import { auth } from '@/lib/auth'
+import { getAdopt, petDetails } from '@/lib/data'
+import AdoptForm from '@/ui/AdoptForm'
+import AdoptFormWrapper from '@/ui/AdoptFormWrapper'
+import { headers } from 'next/headers'
 import Image from 'next/image'
 import React from 'react'
-// import AdoptionForm from './AdoptionForm'
+
 
 const PetDetails = async ({ params }) => {
   const { petId } = await params
 
-  const pet = await petDetails(petId)
+  const token = await auth.api.getToken({
+    headers: await headers()
+  })
+
+  const {pet} = await petDetails(petId,{
+    headers:{
+      authorization: `Bearer ${token}`
+    }
+   
+  })
+   console.log(headers);
+   const AdoptPet = await getAdopt(petId)
+    
 
   if (!pet) {
     return <h1>Pet not found 😢</h1>
@@ -73,8 +89,8 @@ const PetDetails = async ({ params }) => {
   </div>
    
       <div>
-        {/* <AdoptionForm pet={pet} /> */}
-        hi
+       <AdoptFormWrapper AdoptPet={AdoptPet} pet={pet}/>
+      
       </div>
 
     </div>

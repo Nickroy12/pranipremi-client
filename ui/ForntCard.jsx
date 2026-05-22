@@ -12,7 +12,7 @@ const ForntCard = ({ pet }) => {
       {/* IMAGE */}
       <figure className="relative h-64 w-full overflow-hidden rounded-t-xl group">
         <Image
-          src={pet.imageUrl}
+          src={pet.imageUrl }
           fill
           className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
           alt={pet.petName}

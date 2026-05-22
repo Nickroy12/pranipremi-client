@@ -1,13 +1,15 @@
-import Table from '@/Components/Table'
+
 import { postPet } from '@/lib/action'
+
 import { getPets } from '@/lib/data'
 import From from '@/ui/FormModal'
 import OwnerBoard from '@/ui/OwnerBoard'
+import TableWrapper from '@/ui/TableWrapper'
 import React from 'react'
 
 const Dashboard = async() => {
     const pets = await getPets()
-     
+
   return (
   <div className='w-10/12 mx-auto space-y-3'>
   <div className=' flex justify-between'>
@@ -17,8 +19,8 @@ const Dashboard = async() => {
        </div>
      
     </div>
-    <OwnerBoard/>
-   <Table pets={pets} />
+    
+   <TableWrapper pets={pets}/>
   </div>
   )
 }
