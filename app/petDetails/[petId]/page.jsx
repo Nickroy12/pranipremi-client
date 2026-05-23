@@ -20,7 +20,7 @@ const PetDetails = async ({ params }) => {
     
 
   if (!pet) {
-    return <h1>Pet not found 😢</h1>
+    return <h1>Pet not found</h1>
   }
 
   return (
